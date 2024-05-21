@@ -1,4 +1,5 @@
 import { Component } from "react";
+import styled from "styled-components";
 
 import AppInfo from "../app-info/app-info";
 import SearchPanel from "../search-panel/search-panel";
@@ -102,11 +103,16 @@ class App extends Component {
   
   updateCriteria = (criteria) => this.setState({criteria});
 
+  DivApp = styled.div`
+    margin: 0 auto;
+    max-width: 1000px;
+  `;
+
   render() {
     const { data, term } = this.state;
     const visibleData = this.searchEmp(data, term);
     return (
-      <div className="app">
+      <this.DivApp>
         <AppInfo
           employeesCount={data.length}
           increaseCount={this.countIncrease()}
@@ -122,9 +128,11 @@ class App extends Component {
           onToggleRise={this.onToggleRise}
         />
         <EmployeesAddForm onAdd={this.addItem} />
-      </div>
+      </this.DivApp>
     );
   }
 }
+
+
 
 export default App;
