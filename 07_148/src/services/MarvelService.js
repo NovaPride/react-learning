@@ -25,6 +25,7 @@ export default class MarvelService{
 
   _transformCharacter = (pers) => {
     return {
+      id: pers.id,
       name: pers.name, 
       description: pers.description,
       thumbnail: `${pers.thumbnail.path}.${pers.thumbnail.extension}`,
