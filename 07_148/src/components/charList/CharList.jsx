@@ -7,6 +7,7 @@ import ErrorMessage from '../errorMessage/errorMessage';
 import './charList.scss';
 import { abyssImg } from '../../resources/imgFiles';
 import { API_KEY } from '../../constants/constants';
+
 /* <li className="char__item char__item_selected">
   <img src={abyssImg} alt="abyss"/>
   <div className="char__name">Abyss</div>
@@ -17,6 +18,7 @@ export default class CharList extends Component {
     chars: {},
     loading: true,
     error: false,
+    currentOffset: 210,
   }
 
   componentDidMount() {
@@ -29,18 +31,40 @@ export default class CharList extends Component {
 
   onError = () => this.setState({loading: false, error: true});
   
+  onCharLoading = () => {
+    this.setState({loading: true})
+  }
+
+  onLoadMore = async () => {
+    await this.setState(
+      ({currentOffset}) => { 
+        return {currentOffset: currentOffset + 9}
+      });
+    this.marvelService
+      .getAllCharacters(this.state.currentOffset)
+      .then((newChars) => {
+        this.setState(({chars}) => { 
+          return {
+            chars: chars.concat(newChars),
+            loading: false
+        }});
+        return newChars;
+      })
+      .catch(this.onError);
+  }
+
   updateChars = () => {
     this.marvelService
-      .getAllCharacters()
+      .getAllCharacters(this.state.currentOffset)
       .then(this.onCharsLoaded)
       .catch(this.onError);
   }
 
   highlightCard = e => {
-    e.currentTarget.childNodes.forEach(card => card.classList.remove("char__item_selected")); 
+    e.currentTarget.childNodes.forEach(card => card.classList.remove("char__item_hovered")); 
     if(e.target.dataset.card || e.target.parentElement.dataset.card) {
       const card = e.target.dataset.card ? e.target : e.target.parentElement;
-      card.classList.add("char__item_selected")
+      card.classList.add("char__item_hovered")
     }
   } 
 
@@ -49,7 +73,7 @@ export default class CharList extends Component {
 
     const errorMessage = error ? <ErrorMessage/> : null;
     const spinner = loading ? <Spinner/> : null;
-    const content = !(loading || error) ? <View chars={chars}/> : null;
+    const content = !(loading || error) ? <View chars={chars} onCharSelected={this.props.onCharSelected}/> : null;
 
     return (
       <div className="char__list">
@@ -58,7 +82,7 @@ export default class CharList extends Component {
           {spinner}
           {content}
         </ul>
-        <button className="button button__main button__long">
+        <button className="button button__main button__long" onClick={this.onLoadMore}>
           <div className="inner">load more</div>
         </button>
       </div>
@@ -66,11 +90,11 @@ export default class CharList extends Component {
   }
 }
 
-const View = ({chars}) => {
+const View = ({chars, onCharSelected}) => {
   return chars.map(char => {
     const {id, name, thumbnail} = char;
     return (
-      <li key={id} className="char__item" data-card>
+      <li key={id} data-card className="char__item" onClick={() => onCharSelected(id)}>
         <img src={thumbnail} alt={name}/>
         <div className="char__name">{name}</div>
       </li>

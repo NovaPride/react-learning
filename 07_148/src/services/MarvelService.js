@@ -13,8 +13,8 @@ export default class MarvelService{
     return await res.json();
   }
 
-  getAllCharacters = async () => {
-    const res = await this.getResource(`${this._apiBase}/characters?limit=9&offset=210&apikey=${this.apiKey}`);
+  getAllCharacters = async (additionalOffset) => {
+    const res = await this.getResource(`${this._apiBase}/characters?limit=9&offset=${additionalOffset}&apikey=${this.apiKey}`);
     return res.data.results.map(this._transformCharacter);
   }
 
@@ -31,6 +31,7 @@ export default class MarvelService{
       thumbnail: `${pers.thumbnail.path}.${pers.thumbnail.extension}`,
       homepage: pers.urls[0].url,
       wiki: pers.urls[1].url,
+      comics: pers.comics.items,
     }
   }
 }
