@@ -5,13 +5,8 @@ import MarvelService from '../../services/MarvelService';
 import ErrorMessage from '../errorMessage/errorMessage';
 
 import './charList.scss';
-import { abyssImg } from '../../resources/imgFiles';
 import { API_KEY } from '../../constants/constants';
 
-/* <li className="char__item char__item_selected">
-  <img src={abyssImg} alt="abyss"/>
-  <div className="char__name">Abyss</div>
-</li> */
 
 export default class CharList extends Component {
   state = {
@@ -98,6 +93,6 @@ const View = ({chars, onCharSelected}) => {
         <img src={thumbnail} alt={name}/>
         <div className="char__name">{name}</div>
       </li>
-    );
+    )
   })
 }

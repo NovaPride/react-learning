@@ -104,9 +104,9 @@ const View = ({char}) => {
               <li key={i} className="char__comics-item">
                 {item.name}
               </li>
-            );
+            )
           })} 
         </ul>
     </>
-  );
+  )
 }
