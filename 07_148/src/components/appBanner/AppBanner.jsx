@@ -2,7 +2,7 @@ import './appBanner.scss';
 import { avengersImg, avengersLogoImg } from '../../resources/imgFiles';
 
 
-export const AppBanner = () => {
+const AppBanner = () => {
   return (
     <div className="app__banner">
       <img src={avengersImg} alt="Avengers"/>
@@ -14,3 +14,5 @@ export const AppBanner = () => {
     </div>
   )
 }
+
+export default AppBanner;

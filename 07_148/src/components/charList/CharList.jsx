@@ -1,61 +1,39 @@
-import { Component } from 'react';
+import { useEffect, useState } from 'react';
 
 import Spinner from '../spinner/Spinner';
-import MarvelService from '../../services/MarvelService';
+import { useMarvelService } from '../../services/MarvelService';
 import ErrorMessage from '../errorMessage/errorMessage';
 
 import './charList.scss';
 import { API_KEY } from '../../constants/constants';
 
 
-export default class CharList extends Component {
-  state = {
-    chars: {},
-    loading: true,
-    error: false,
-    currentOffset: 210,
-  }
-
-  componentDidMount() {
-    this.updateChars();
-  }
-
-  marvelService = new MarvelService(API_KEY);
-
-  onCharsLoaded = (chars) => this.setState({chars, loading: false});
-
-  onError = () => this.setState({loading: false, error: true});
+const CharList = (props) => {
+  const [chars, setChars] = useState({});
+  const [currentOffset, setCurrentOffset] = useState(210);
+  const {loading, error, getAllCharacters} = useMarvelService(API_KEY);
   
-  onCharLoading = () => {
-    this.setState({loading: true})
-  }
+  useEffect(() => {
+    updateChars();
+  }, [])
 
-  onLoadMore = async () => {
-    await this.setState(
-      ({currentOffset}) => { 
-        return {currentOffset: currentOffset + 9}
-      });
-    this.marvelService
-      .getAllCharacters(this.state.currentOffset)
+
+  const onLoadMore = () => {
+    getAllCharacters(currentOffset + 9)
       .then((newChars) => {
-        this.setState(({chars}) => { 
-          return {
-            chars: chars.concat(newChars),
-            loading: false
-        }});
-        return newChars;
+        setChars(chars => chars.concat(newChars));
       })
-      .catch(this.onError);
+      .then(() => {
+        setCurrentOffset(currentOffset => currentOffset + 9);
+      })
   }
 
-  updateChars = () => {
-    this.marvelService
-      .getAllCharacters(this.state.currentOffset)
-      .then(this.onCharsLoaded)
-      .catch(this.onError);
+  const updateChars = () => {
+    getAllCharacters(currentOffset)
+      .then(chars => setChars(chars));
   }
 
-  highlightCard = e => {
+  const highlightCard = e => {
     e.currentTarget.childNodes.forEach(card => card.classList.remove("char__item_hovered")); 
     if(e.target.dataset.card || e.target.parentElement.dataset.card) {
       const card = e.target.dataset.card ? e.target : e.target.parentElement;
@@ -63,29 +41,27 @@ export default class CharList extends Component {
     }
   } 
 
-  render() {
-    const {chars, loading, error} = this.state;
+  
+  const errorMessage = error ? <ErrorMessage/> : null;
+  const spinner = loading ? <Spinner/> : null;
+  const content = !(loading || error) ? <View chars={chars} onCharSelected={props.onCharSelected}/> : null;
 
-    const errorMessage = error ? <ErrorMessage/> : null;
-    const spinner = loading ? <Spinner/> : null;
-    const content = !(loading || error) ? <View chars={chars} onCharSelected={this.props.onCharSelected}/> : null;
-
-    return (
-      <div className="char__list">
-        <ul className="char__grid" onMouseMove={this.highlightCard}>
-          {errorMessage}
-          {spinner}
-          {content}
-        </ul>
-        <button className="button button__main button__long" onClick={this.onLoadMore}>
-          <div className="inner">load more</div>
-        </button>
-      </div>
-    )
-  }
+  return (
+    <div className="char__list">
+      <ul className="char__grid" onMouseMove={highlightCard}>
+        {errorMessage}
+        {spinner}
+        {content}
+      </ul>
+      <button className="button button__main button__long" onClick={onLoadMore}>
+        <div className="inner">load more</div>
+      </button>
+    </div>
+  )
 }
 
 const View = ({chars, onCharSelected}) => {
+  if (Object.keys(chars).length === 0) return (<></>);
   return chars.map(char => {
     const {id, name, thumbnail} = char;
     return (
@@ -96,3 +72,5 @@ const View = ({chars, onCharSelected}) => {
     )
   })
 }
+
+export default CharList;
