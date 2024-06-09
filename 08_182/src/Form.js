@@ -2,7 +2,7 @@ import { Formik, Form, Field, ErrorMessage, useField } from "formik";
 import * as Yup from "yup";
 
 
-const MyTextInput = ({label, ...props}) => {
+const NovaTextInput = ({label, ...props}) => {
   const [field, meta] = useField(props);
   return (
     <>
@@ -17,7 +17,7 @@ const MyTextInput = ({label, ...props}) => {
   )
 }
 
-const MyCheckbox = ({children, ...props}) => {
+const NovaCheckbox = ({children, ...props}) => {
   const [field, meta] = useField({...props, type: "checkbox"});
   return (
     <>
@@ -34,7 +34,7 @@ const MyCheckbox = ({children, ...props}) => {
   )
 }
 
-const MyForm = () => {
+const NovaForm = () => {
   return (
     <Formik
       initialValues = {{
@@ -57,19 +57,19 @@ const MyForm = () => {
     >
       <Form className="form">
         <h2>Отправить пожертвование</h2>
-        <MyTextInput
+        <NovaTextInput
           label="Ваше имя"
           id="name"
           name="name"
           type="text"
         />
-        <MyTextInput
+        <NovaTextInput
           label="Ваша почта"
           id="email"
           name="email"
           type="email"
         />
-        <MyTextInput
+        <NovaTextInput
           label="Количество"
           id="amount"
           name="amount"
@@ -92,11 +92,11 @@ const MyForm = () => {
           name="text"
           as="textarea"/>
           <ErrorMessage className="error" name="text" component="div"/>
-        <MyCheckbox name="terms"> Соглашаетесь с политикой конфиденциальности? </MyCheckbox>
+        <NovaCheckbox name="terms"> Соглашаетесь с политикой конфиденциальности? </NovaCheckbox>
         <button type="submit">Отправить</button>
       </Form>
     </Formik>
   )
 }
 
-export default MyForm;
+export default NovaForm;
