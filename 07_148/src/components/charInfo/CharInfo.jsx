@@ -11,7 +11,7 @@ import { API_KEY } from '../../constants/constants';
 
 const CharInfo = (props) => {
   const [char, setChar] = useState(null);
-  const {loading, error, getCharacter, clearError}= useMarvelService(API_KEY);
+  const {loading, error, getCharacter, clearError} = useMarvelService(API_KEY);
 
   useEffect(() => {
     updateChar();
@@ -43,7 +43,6 @@ const CharInfo = (props) => {
       {content}
     </div>
   )
-  
 }
 
 const View = ({char}) => {
