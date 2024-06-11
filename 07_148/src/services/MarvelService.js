@@ -10,7 +10,7 @@ export const useMarvelService = (apiKey) => {
     const res = await request(`${_apiBase}/characters/${id}?apikey=${apiKey}`);
     return _transformCharacter(res.data.results[0]);
   }
-//https://gateway.marvel.com:443/v1/public/characters?name=tHOr&apikey=b5e8c957f1a227be9d03e55657af0f6d
+
   const getCharacterByName = async (name) => {
     const res = await request(`${_apiBase}/characters?name=${name}&apikey=${apiKey}`);
     return _transformCharacter(res.data.results[0]);
