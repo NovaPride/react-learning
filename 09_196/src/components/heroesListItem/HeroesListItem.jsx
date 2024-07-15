@@ -1,11 +1,8 @@
-import { useHttp } from "../../hooks/http.hook";
-import { useDispatch } from "react-redux";
-import { heroDeletingError } from "../../actions";
+import useDatabase from "../../service/useDatabase";
 
 const HeroesListItem = ({ id, name, description, element, fetchHeroes }) => {
   let elementClassName;
-  const dispatch = useDispatch();
-  const { request } = useHttp();
+  const { deleteHero } = useDatabase();
 
   switch (element) {
     case "fire":
@@ -24,16 +21,13 @@ const HeroesListItem = ({ id, name, description, element, fetchHeroes }) => {
       elementClassName = "bg-warning bg-gradient";
   }
 
-  const urMoM = () => {
-    request(`http://localhost:3001/heroes/${id}`, "DELETE")
-      .then(fetchHeroes)
-      .catch(() => dispatch(heroDeletingError()))
-  }
+  const handleDeleteClick = () => {
+    deleteHero(id);
+  };
 
   return (
     <li
-      className={`card flex-row mb-4 shadow-lg text-white ${elementClassName}`}
-    >
+      className={`card flex-row mb-4 shadow-lg text-white ${elementClassName}`}>
       <img
         src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Unknown_person.jpg/1200px-Unknown_person.jpg"
         className="img-fluid w-25 d-inline"
@@ -49,8 +43,7 @@ const HeroesListItem = ({ id, name, description, element, fetchHeroes }) => {
           type="button"
           className="btn-close btn-close"
           aria-label="Close"
-          onClick={urMoM}
-        ></button>
+          onClick={handleDeleteClick}></button>
       </span>
     </li>
   );

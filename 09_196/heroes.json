@@ -1,59 +1,64 @@
 {
   "heroes": [
     {
-      "id": 1,
-      "name": "Первый герой",
-      "description": "Первый герой в рейтинге!",
-      "element": "fire"
+      "id": "50bda7b6-be8f-4007-9683-7c1f374bac40",
+      "name": "dasdqwdwq",
+      "description": "dqwdqwdqw",
+      "element": "earth"
     },
     {
-      "id": 2,
-      "name": "Неизвестный герой",
-      "description": "Скрывающийся в тени",
+      "id": "50afe7bc-20c9-47f7-8938-dd83a7a87db0",
+      "name": "dasdqwdwqqwfwefwe",
+      "description": "dqwdqwdqwsdsadsad",
       "element": "wind"
     },
     {
-      "id": 3,
-      "name": "Морской герой",
-      "description": "Как аквамен, но не из DC",
+      "id": "143c2764-19f2-4a13-b672-aff38c1b19a1",
+      "name": "dasdqwdwqqwfwefweqwdqw",
+      "description": "dqwdqwdqwsdsaaasdassddsad",
       "element": "water"
     },
     {
-      "id": 44,
-      "name": "Первый герой",
-      "description": "Первый герой в рейтинге!",
+      "id": "b9e552cf-5a2c-4515-ad4e-c3e39051b6d4",
+      "name": "вцыфвйц",
+      "description": "fdgergherg",
       "element": "fire"
     },
     {
-      "id": 5,
-      "name": "Неизвестный герой",
-      "description": "Скрывающийся в тени",
+      "id": "e5399807-f99a-41e5-9a0b-0fb8f34786d1",
+      "name": "dqwdqwdqw",
+      "description": "dwqqwddwq",
       "element": "wind"
     },
     {
-      "id": 6,
-      "name": "Морской герой",
-      "description": "Как аквамен, но не из DC",
-      "element": "water"
-    },
-    {
-      "id": 7,
-      "name": "Первый герой",
-      "description": "Первый герой в рейтинге!",
+      "id": "ff42716c-56c4-4e2f-81f5-ef6b945f3cd7",
+      "name": "dqwdqwdqw",
+      "description": "dwqqwddwq",
       "element": "fire"
     },
     {
-      "id": 8,
-      "name": "Неизвестный герой",
-      "description": "Скрывающийся в тени",
-      "element": "wind"
+      "id": "3181a153-807c-4a74-80f4-f8d1e375c24c",
+      "name": "dqwdqwdqw",
+      "description": "dwqqwddwq",
+      "element": "fire"
     },
     {
-      "id": 9,
-      "name": "Морской герой",
-      "description": "Как аквамен, но не из DC",
-      "element": "water"
+      "id": "6902abf7-474b-4737-be07-3b0020e78b43",
+      "name": "dqwdqwdqw",
+      "description": "dwqqwddwqwq",
+      "element": "fire"
+    },
+    {
+      "id": "b79f030d-d23c-49e0-95aa-e5b9f5a47ce9",
+      "name": "dqwdqwdqw",
+      "description": "dwqqwddwqwq",
+      "element": "wind"
     }
   ],
-  "filters": ["all", "fire", "water", "wind", "earth"]
+  "elements": [
+    "fire",
+    "water",
+    "wind",
+    "earth"
+  ]
 }
