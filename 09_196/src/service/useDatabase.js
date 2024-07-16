@@ -16,7 +16,6 @@ const useDatabase = () => {
   const { request } = useHttp();
 
   const fetchHeroes = (currentFilter = "") => {
-    console.log(currentFilter)
     const url = `${__BASE_URI}/heroes` + (currentFilter ? `?element=${currentFilter}` : ``)
     dispatch(heroesFetching());
     request(url)

@@ -8,7 +8,7 @@ import { changeElementLanguageToKryvianCyrillic } from "../../utils/utils";
 
 const HeroesFilters = () => {
   const dispatch = useDispatch();
-  const elements = useSelector((state) => state.elements);
+  const elements = useSelector((state) => state.elements.value);
 
   const { fetchElemets, fetchHeroes } = useDatabase();
 

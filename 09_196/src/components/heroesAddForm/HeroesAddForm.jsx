@@ -6,11 +6,14 @@ import useDatabase from "../../service/useDatabase";
 import { changeElementLanguageToKryvianCyrillic } from "../../utils/utils";
 
 const HeroesAddForm = () => {
-  const elements = useSelector((state) => state.elements);
-  const elementsLoadingStatus = useSelector(
-    (state) => state.elementsLoadingStatus
-  );
+  // const elements = useSelector((state) => state.elements.value);
+  // const elementsLoadingStatus = useSelector(
+  //   (state) => state.elements.loadingStatus
+  // );
 
+  const { value, loadingStatus } = useSelector((state) => state.elements);
+  const elements = value;
+  const elementsLoadingStatus = loadingStatus;
   const { fetchHeroes, postHero, fetchElemets } = useDatabase();
 
   useEffect(() => {

@@ -7,8 +7,8 @@ import HeroesListItem from "../heroesListItem/HeroesListItem";
 import Spinner from "../spinner/Spinner";
 
 const HeroesList = () => {
-  const heroes = useSelector((state) => state.heroes);
-  const heroesLoadingStatus = useSelector((state) => state.heroesLoadingStatus);
+  const heroes = useSelector((state) => state.heroes.value);
+  const heroesLoadingStatus = useSelector((state) => state.heroes.loadingStatus);
   const { fetchHeroes } = useDatabase();
 
   useEffect(() => {
