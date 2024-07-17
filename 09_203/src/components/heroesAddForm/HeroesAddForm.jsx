@@ -3,14 +3,16 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 
-import { heroCreated } from "../../actions";
+import { heroCreated } from "../heroesList/heroesSlice";
 
 const HeroesAddForm = () => {
   const [heroName, setHeroName] = useState("");
   const [heroDescr, setHeroDescr] = useState("");
   const [heroElement, setHeroElement] = useState("");
 
-  const { filters, filtersLoadingStatus } = useSelector(state => state.filters);
+  const { filters, filtersLoadingStatus } = useSelector(
+    (state) => state.filters
+  );
   const dispatch = useDispatch();
   const { request } = useHttp();
 
@@ -20,24 +22,24 @@ const HeroesAddForm = () => {
       id: uuidv4(),
       name: heroName,
       description: heroDescr,
-      element: heroElement
-    }
+      element: heroElement,
+    };
 
     request("http://localhost:3001/heroes", "POST", JSON.stringify(newHero))
-      .then(res => console.log(res, "Адпраўка паспяховая"))
+      .then((res) => console.log(res, "Адпраўка паспяховая"))
       .then(dispatch(heroCreated(newHero)))
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
 
     setHeroName("");
     setHeroDescr("");
     setHeroElement("");
-  }
+  };
 
   const renderFilters = (filters, status) => {
     if (status === "loading") {
-      return <option>Загрузка элементаў</option>
+      return <option>Загрузка элементаў</option>;
     } else if (status === "error") {
-      return <option>Памылка загрузкі</option>
+      return <option>Памылка загрузкі</option>;
     }
 
     if (filters && filters.length > 0) {
@@ -45,15 +47,21 @@ const HeroesAddForm = () => {
         // eslint-disable-next-line
         if (name === "all") return;
 
-        return <option key={name} value={name}>{label}</option>
-      })
+        return (
+          <option key={name} value={name}>
+            {label}
+          </option>
+        );
+      });
     }
-  }
+  };
 
   return (
     <form className="border p-4 shadow-lg rounded" onSubmit={onSubmitHandler}>
       <div className="mb-3">
-        <label htmlFor="name" className="form-label fs-4">Ім'я новага героя</label>
+        <label htmlFor="name" className="form-label fs-4">
+          Ім'я новага героя
+        </label>
         <input
           required
           type="text"
@@ -62,24 +70,30 @@ const HeroesAddForm = () => {
           id="name"
           placeholder="Як мяне зваць?"
           value={heroName}
-          onChange={(e) => setHeroName(e.target.value)} />
+          onChange={(e) => setHeroName(e.target.value)}
+        />
       </div>
 
       <div className="mb-3">
-        <label htmlFor="text" className="form-label fs-4">Апісаньне</label>
+        <label htmlFor="text" className="form-label fs-4">
+          Апісаньне
+        </label>
         <textarea
           required
           name="text"
           className="form-control"
           id="text"
           placeholder="Што я магу?"
-          style={{ "height": "130px" }}
+          style={{ height: "130px" }}
           value={heroDescr}
-          onChange={(e) => setHeroDescr(e.target.value)} />
+          onChange={(e) => setHeroDescr(e.target.value)}
+        />
       </div>
 
       <div className="mb-3">
-        <label htmlFor="element" className="form-label">Абярыце элемент героя</label>
+        <label htmlFor="element" className="form-label">
+          Абярыце элемент героя
+        </label>
         <select
           required
           className="form-select"
@@ -92,9 +106,11 @@ const HeroesAddForm = () => {
         </select>
       </div>
 
-      <button type="submit" className="btn btn-primary">Стварыць</button>
+      <button type="submit" className="btn btn-primary">
+        Стварыць
+      </button>
     </form>
-  )
-}
+  );
+};
 
 export default HeroesAddForm;
